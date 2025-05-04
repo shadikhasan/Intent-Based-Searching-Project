@@ -1,0 +1,7 @@
+Django>=4.0
+djangorestframework
+elasticsearch
+sentence-transformers
+huggingface_hub[hf_xet]
+psycopg2-binary
+

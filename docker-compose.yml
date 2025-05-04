@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    container_name: django-backend
+    command: >
+      sh -c "python manage.py wait_for_db &&
+            python manage.py makemigrations &&
+            python manage.py migrate &&
+            python manage.py superuser_init &&
+            python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - elasticsearch
+      - postgres
+    environment:
+      - ES_HOST=http://elasticsearch:9200
+      - POSTGRES_DB=mydb  # Your database name
+      - POSTGRES_USER=django_user  # Your PostgreSQL username
+      - POSTGRES_PASSWORD=django_password  # Your PostgreSQL password
+    volumes:
+      - .:/app
+    networks:
+      - default
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    networks:
+      - default
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=django_user
+      - POSTGRES_PASSWORD=django_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - default
+
+volumes:
+  dbdata:
+  esdata:
+  postgres_data:  # Volume for PostgreSQL data
+
+networks:
+  default:
+    driver: bridge
