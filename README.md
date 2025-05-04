@@ -6,8 +6,8 @@ This project was developed as part of the [Poridhi.io AI Hackathon](https://pori
 
 - **Event:** AI Hackathon by Poridhi.io
 - **Theme:** Building intelligent search systems using AI technologies
-- **Duration:** [Add duration here]
-- **Team Members:** [Your team members, if any]
+- **Duration:** 12 hours
+- **Team Name:** RU_tob_tobi_tob
 
 ## 🎯 Project Goal
 
@@ -155,6 +155,3 @@ The goal of this project is to build a semantic search engine that allows users 
 
 This project is licensed under the MIT License.
 
-## 👨‍💻 Developed by
-
-**Shadik Hasan**
